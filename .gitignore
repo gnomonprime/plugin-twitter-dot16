@@ -4,3 +4,6 @@ dist
 .env
 .env.test
 coverage
+storageState.json
+src/playwright-tests/test-output
+src/playwright-tests/playwright-report

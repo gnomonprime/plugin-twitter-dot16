@@ -1,6 +1,8 @@
 import { type IAgentRuntime, logger, type Plugin } from "@elizaos/core";
-import { TwitterService } from "./services/twitter.service.js";
-import { postTweetAction } from "./actions/postTweet.js";
+import { TwitterService } from "./services/twitter.service";
+import { postTweetAction } from "./actions/postTweet";
+import fs from "fs/promises";
+import path from "path";
 
 export const TwitterPlugin: Plugin = {
   name: "twitter",
@@ -16,31 +18,35 @@ export const TwitterPlugin: Plugin = {
     const hasGetSetting = runtime && typeof runtime.getSetting === "function";
 
     // Basic validation of required settings
-    const apiKey = hasGetSetting
-      ? runtime.getSetting("TWITTER_API_KEY")
-      : process.env.TWITTER_API_KEY;
-    const apiSecretKey = hasGetSetting
-      ? runtime.getSetting("TWITTER_API_SECRET_KEY")
-      : process.env.TWITTER_API_SECRET_KEY;
-    const accessToken = hasGetSetting
-      ? runtime.getSetting("TWITTER_ACCESS_TOKEN")
-      : process.env.TWITTER_ACCESS_TOKEN;
-    const accessTokenSecret = hasGetSetting
-      ? runtime.getSetting("TWITTER_ACCESS_TOKEN_SECRET")
-      : process.env.TWITTER_ACCESS_TOKEN_SECRET;
+    const username = hasGetSetting
+      ? runtime.getSetting("TWITTER_USERNAME")
+      : process.env.TWITTER_USERNAME;
+    const password = hasGetSetting
+      ? runtime.getSetting("TWITTER_PASSWORD")
+      : process.env.TWITTER_PASSWORD;
 
-    if (!apiKey || !apiSecretKey || !accessToken || !accessTokenSecret) {
-      const missing = [];
-      if (!apiKey) missing.push("TWITTER_API_KEY");
-      if (!apiSecretKey) missing.push("TWITTER_API_SECRET_KEY");
-      if (!accessToken) missing.push("TWITTER_ACCESS_TOKEN");
-      if (!accessTokenSecret) missing.push("TWITTER_ACCESS_TOKEN_SECRET");
-
+    const storagePath = path.join(process.cwd(), "storageState.json");
+    let hasStorage = true;
+    try {
+      await fs.access(storagePath);
+    } catch {
+      hasStorage = false;
       logger.warn(
-        `Twitter API credentials not configured - Twitter functionality will be limited. Missing: ${missing.join(", ")}`,
+        "To enable Twitter functionality, a session storage state is required.",
       );
       logger.warn(
-        "To enable Twitter functionality, please provide the missing credentials in your .env file",
+        "storageState.json not found - run the login.spec.ts test to create it.",
+      );
+    }
+
+    if (!username || !password || !hasStorage) {
+      const missing = [];
+      if (!username) missing.push("TWITTER_USERNAME");
+      if (!password) missing.push("TWITTER_PASSWORD");
+      if (!hasStorage) missing.push("storageState.json");
+
+      logger.warn(
+        `Twitter credentials not configured. Missing: ${missing.join(", ")}`,
       );
     } else {
       logger.log("✅ Twitter credentials found");
