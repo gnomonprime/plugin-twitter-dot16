@@ -58,15 +58,15 @@ This package provides Twitter/X integration for the Eliza AI agent using the off
 2. Configure exactly as shown:
 
    **App permissions**: `Read and write` ✅
-   
+
    **Type of App**: `Web App, Automated App or Bot`
-   
+
    **Required URLs** (copy these exactly):
    ```
    Callback URI: http://localhost:3000/callback
    Website URL: https://github.com/elizaos/eliza
    ```
-   
+
    **Optional fields**:
    ```
    Organization name: ElizaOS
@@ -129,7 +129,7 @@ TWITTER_ENABLE_POST=true           # Enable autonomous tweet posting
 TWITTER_POST_IMMEDIATELY=true      # Post on startup (great for testing)
 TWITTER_POST_INTERVAL=120          # Minutes between posts (default: 120)
 # For more natural timing, use MIN/MAX intervals:
-TWITTER_POST_INTERVAL_MIN=90       # Minimum minutes between posts  
+TWITTER_POST_INTERVAL_MIN=90       # Minimum minutes between posts
 TWITTER_POST_INTERVAL_MAX=150      # Maximum minutes between posts
 ```
 
@@ -185,7 +185,7 @@ TWITTER_POST_INTERVAL=120          # Fixed interval between posts (default: 120,
 TWITTER_POST_INTERVAL_MIN=90       # Minimum minutes between posts (default: 90)
 TWITTER_POST_INTERVAL_MAX=150      # Maximum minutes between posts (default: 150)
 
-# Engagement intervals  
+# Engagement intervals
 TWITTER_ENGAGEMENT_INTERVAL=30     # Fixed interval for interactions (default: 30, used if MIN/MAX not set)
 TWITTER_ENGAGEMENT_INTERVAL_MIN=20 # Minimum minutes between engagements (default: 20)
 TWITTER_ENGAGEMENT_INTERVAL_MAX=40 # Maximum minutes between engagements (default: 40)
@@ -423,7 +423,7 @@ The plugin includes sophisticated rate limiting:
 # Run tests
 bun test
 
-# Run with debug logging  
+# Run with debug logging
 DEBUG=eliza:* bun start
 
 # Test without posting
