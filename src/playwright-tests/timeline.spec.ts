@@ -1,6 +1,6 @@
 // filename: timeline.spec.ts
 import { test, expect } from "@playwright/test";
-import { parseTweet } from "../client/tweets-pw";
+import { parseTweet } from "../client/pw-tweets";
 import { getAuthenticatedPage } from "../client/browser";
 import fs from "fs/promises";
 import path from "path";

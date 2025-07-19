@@ -1,14 +1,3 @@
-import type { Browser, Page } from 'playwright';
-import type { TwitterService } from './index';
-
-// Adapted ITwitterClient for stealth scraping
-export interface ITwitterClient {
-  browser: Browser | null;
-  page: Page | null;
-  service: TwitterService;
-  // Add other properties as we implement post, interaction, etc.
-}
-
 // Twitter-specific event types
 export enum TwitterEventTypes {
   WORLD_JOINED = 'TWITTER_WORLD_JOINED',
